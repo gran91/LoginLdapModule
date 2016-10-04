@@ -6,7 +6,6 @@
 package com.kles.task;
 
 import com.kles.protocol.IAuthentication;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 
