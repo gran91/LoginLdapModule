@@ -22,4 +22,8 @@ public interface IAuthentication {
     public void setUserPassword(String user, String password);
 
     public StringProperty getMessage();
+
+    public String getUserValue();
+
+    public String getPasswordValue();
 }

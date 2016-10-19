@@ -203,4 +203,14 @@ public class LdapManager implements IAuthentication {
     public StringProperty getMessage() {
         return message;
     }
+
+    @Override
+    public String getUserValue() {
+        return login.getValue();
+    }
+
+    @Override
+    public String getPasswordValue() {
+        return password.getValue();
+    }
 }

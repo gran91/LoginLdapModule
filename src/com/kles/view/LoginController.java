@@ -136,4 +136,12 @@ public class LoginController {
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
+    public TextField getLoginField() {
+        return loginField;
+    }
+
+    public PasswordField getPasswordField() {
+        return passwordField;
+    }
 }
