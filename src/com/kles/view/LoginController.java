@@ -28,6 +28,7 @@ import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.stage.Stage;
@@ -48,11 +49,16 @@ public class LoginController {
     private ProgressIndicator progress;
     @FXML
     private Label messageField;
+    @FXML
+    private CheckBox autoLogin;
 
     private Stage stage;
     private BooleanBinding loginBoolean, passwordBoolean;
     private final Map<BooleanBinding, String> messages = new LinkedHashMap<>();
     public static ResourceBundle resourceMessage = ResourceBundle.getBundle("com.kles.view.language", Locale.getDefault());
+    public static final String LOGIN = "login";
+    public static final String PASSWORD = "password";
+    public static final String AUTOLOGIN = "autologin";
 
     private Service<Boolean> connectService;
     private CheckUserLoginTask connectTask;
@@ -70,7 +76,7 @@ public class LoginController {
     }
 
     @FXML
-    private void handleConnect() {
+    public void handleConnect() {
         authentication = new LdapManager(LDAP.getFromPrefs());
         authentication.setUserPassword(loginField.getText(), passwordField.getText());
         messageField.textProperty().unbind();
@@ -96,6 +102,11 @@ public class LoginController {
                     break;
                 case SUCCEEDED:
                     isConnectDisable.setValue(false);
+                    if (autoLogin.isSelected()) {
+                        this.mainApp.prefs.put(LOGIN, loginField.getText());
+                        this.mainApp.prefs.put(PASSWORD, passwordField.getText());
+                        this.mainApp.prefs.putBoolean(AUTOLOGIN, autoLogin.isSelected());
+                    }
                     break;
             }
         });
@@ -115,6 +126,18 @@ public class LoginController {
 
     public void setMainApp(MainApp main) {
         this.mainApp = main;
+        if (this.mainApp.prefs.get(LOGIN, null) != null) {
+            loginField.setText(this.mainApp.prefs.get(LOGIN, null));
+        }
+        if (this.mainApp.prefs.get(PASSWORD, null) != null) {
+            passwordField.setText(this.mainApp.prefs.get(PASSWORD, null));
+        }
+        if (this.mainApp.prefs.get(AUTOLOGIN, null) != null) {
+            autoLogin.setSelected(this.mainApp.prefs.getBoolean(AUTOLOGIN, false));
+        }
+        if (autoLogin.isSelected()) {
+            handleConnect();
+        }
     }
 
     public BooleanProperty isLoginProperty() {
@@ -144,4 +167,22 @@ public class LoginController {
     public PasswordField getPasswordField() {
         return passwordField;
     }
+
+    public boolean getAutoLogin() {
+        return autoLogin.isSelected();
+    }
+
+    public void setAutoLogin(boolean autoLogin) {
+        this.autoLogin.setSelected(autoLogin);
+    }
+
+    public void logOff() {
+        isLogin.unbind();
+        isLogin.setValue(false);
+    }
+
+    private boolean IsConnectDisable() {
+        return isConnectDisable.getValue();
+    }
+
 }
