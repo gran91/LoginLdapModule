@@ -6,6 +6,7 @@
 package com.kles.login;
 
 import com.kles.MainApp;
+import com.kles.protocol.IAuthentication;
 import com.kles.view.LoginController;
 import java.io.IOException;
 import java.util.Locale;
@@ -22,24 +23,17 @@ import resources.Resource;
  * @author jchau
  */
 public class LoginManager {
-
-    private Locale lng = Locale.getDefault();
     private MainApp mainApp;
     private LoginController loginController;
 
     public LoginManager(MainApp main) {
-        this(main, Locale.getDefault());
-    }
-
-    public LoginManager(MainApp main, Locale l) {
         mainApp = main;
-        lng = l;
     }
 
     public void showLogin() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setResources(ResourceBundle.getBundle("com.kles.view.language", lng));
+            loader.setResources(ResourceBundle.getBundle("com.kles.view.language", Locale.getDefault()));
             loader.setLocation(LoginManager.class.getResource("/com/kles/view/LoginView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Stage dialogStage = new Stage();
@@ -75,14 +69,6 @@ public class LoginManager {
         }
     }
 
-    public Locale getLng() {
-        return lng;
-    }
-
-    public void setLng(Locale lng) {
-        this.lng = lng;
-    }
-
     public MainApp getMainApp() {
         return mainApp;
     }
@@ -97,5 +83,9 @@ public class LoginManager {
 
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
+    }
+    
+    public IAuthentication getAuthenticator(){
+        return this.loginController.getAuthentication();
     }
 }

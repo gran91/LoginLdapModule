@@ -26,4 +26,5 @@ public interface IAuthentication {
     public String getUserValue();
 
     public String getPasswordValue();
+    
 }

@@ -5,6 +5,7 @@
  */
 package com.kles.login;
 
+import com.kles.MainApp;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -15,10 +16,12 @@ import javafx.stage.Stage;
 public class Main extends Application{
 
     public static void main(String[] args) {
+        launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LoginManager log=new LoginManager(new MainApp());
+        log.showLogin();
     }
 }

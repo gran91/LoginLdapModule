@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="150.0" prefWidth="375.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kles.view.LoginController">
+<AnchorPane id="AnchorPane" prefHeight="150.0" prefWidth="375.0" style="-fx-background-color: rgb(240.0, 240.0, 240.0);" stylesheets="@materialfx-toggleswitch.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kles.view.LoginController">
     <children>
         <Label layoutX="20.0" layoutY="26.0" text="%login.label" />
         <TextField fx:id="loginField" layoutX="174.0" layoutY="21.0" />
@@ -17,7 +17,7 @@
         <PasswordField fx:id="passwordField" layoutX="174.0" layoutY="69.0" />
         <Button fx:id="configButton" layoutX="20.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleConfig">
             <graphic>
-                <FontAwesomeIconView glyphName="GEAR" size="18" />
+                <FontAwesomeIconView glyphName="GEAR" glyphStyle="GEAR" size="18" />
             </graphic>
         </Button>
         <Button fx:id="connectButton" defaultButton="true" layoutX="291.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleConnect" prefWidth="70.0" text="OK" />

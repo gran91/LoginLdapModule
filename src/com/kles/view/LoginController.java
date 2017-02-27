@@ -81,7 +81,7 @@ public class LoginController {
         authentication.setUserPassword(loginField.getText(), passwordField.getText());
         messageField.textProperty().unbind();
         connectTask = new CheckUserLoginTask(authentication);
-        messageField.textProperty().bind(connectTask.messageProperty());
+        //messageField.textProperty().bind(connectTask.messageProperty());
         connectService = new Service<Boolean>() {
             @Override
             protected Task<Boolean> createTask() {
@@ -176,6 +176,14 @@ public class LoginController {
         this.autoLogin.setSelected(autoLogin);
     }
 
+    public IAuthentication getAuthentication() {
+        return authentication;
+    }
+
+    public void setAuthentication(IAuthentication authentication) {
+        this.authentication = authentication;
+    }
+    
     public void logOff() {
         isLogin.unbind();
         isLogin.setValue(false);
